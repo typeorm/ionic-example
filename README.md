@@ -7,6 +7,7 @@ This project demonstrates how that would work.
 2. Install all dependencies: `npm install`
 3. Add a platform: `ionic cordova platform add <ios | android>`
 4. Run the app: `ionic cordova run <ios | android>`. If you need help, you can read [ionic's guide](https://ionicframework.com/docs/intro/deploying/) for running an app on your device
+
 ![screenshot](./screenshot.png)
 
 ### Using TypeORM in your own app
