@@ -1,14 +1,25 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      TypeORM Demo
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-spinner *ngIf="!savedPost" item-start></ion-spinner>
+      <ion-icon *ngIf="savedPost" name="checkmark" item-start color="secondary"></ion-icon>
+      <span>Post saved</span>
+    </ion-item>
+    <ion-item-divider color="primary">Loaded Post</ion-item-divider>
+    <ion-item *ngIf="!loadedPost">Post not loaded</ion-item>
+    <ion-item-group *ngIf="loadedPost">
+      <ion-item>ID: {{loadedPost?.id}}</ion-item>
+      <ion-item>Title: {{loadedPost?.title}}</ion-item>
+      <ion-item>Author: {{loadedPost?.author.name}}</ion-item>
+      <ion-item>Categories: {{getCategories()}}</ion-item>
+    </ion-item-group>
+  </ion-list>
 </ion-content>
