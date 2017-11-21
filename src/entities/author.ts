@@ -1,5 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from "typeorm";
-import {Post} from "./post";
+import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity('author')
 export class Author {
@@ -12,7 +11,4 @@ export class Author {
 
     @Column({nullable: true})
     birthdate: string;
-
-    @OneToMany(type => Post, post => post.author)
-    posts: Post[];
 }

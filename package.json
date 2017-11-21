@@ -9,9 +9,6 @@
         "ionic:build": "ionic-app-scripts build",
         "ionic:serve": "ionic-app-scripts serve"
     },
-    "config": {
-        "ionic_webpack": "./config/webpack.config.js"
-    },
     "dependencies": {
         "@angular/common": "4.4.3",
         "@angular/compiler": "4.4.3",
