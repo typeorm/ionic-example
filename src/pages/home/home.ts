@@ -22,11 +22,9 @@ export class HomePage {
 
   async connect() {
     await createConnection({
-      type: 'websql',
+      type: 'cordova',
       database: 'test',
-      size: 1024 * 1024,
-      version: '1.0',
-      description: '',
+      location: 'default',
       logging: ['error', 'query', 'schema'],
       synchronize: true,
       entities: [
