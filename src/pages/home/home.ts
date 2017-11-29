@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Platform, NavController } from 'ionic-angular';
-import { createConnection, getRepository } from 'typeorm';
+import { NavController } from 'ionic-angular';
+import { getRepository } from 'typeorm';
 
 import { Author } from '../../entities/author';
 import { Category } from '../../entities/category';
@@ -14,30 +14,13 @@ export class HomePage {
   private savedPost: boolean = false;
   private loadedPost: Post = null;
 
-  constructor(public navCtrl: NavController, private platform: Platform) { }
+  constructor(public navCtrl: NavController) { }
 
   ionViewDidLoad() {
     this.runDemo();
   }
 
-  async connect() {
-    await createConnection({
-      type: 'cordova',
-      database: 'test',
-      location: 'default',
-      logging: ['error', 'query', 'schema'],
-      synchronize: true,
-      entities: [
-        Author,
-        Category,
-        Post
-      ]
-    });
-  }
-
   async runDemo() {
-    await this.platform.ready();
-    await this.connect();
     const category1 = new Category();
     category1.name = "TypeScript";
 
@@ -71,7 +54,7 @@ export class HomePage {
 
   getCategories() {
     if(this.loadedPost) {
-      return this.loadedPost.categories.map(cat => cat.name).join(",");
+      return this.loadedPost.categories.map(cat => cat.name).join(", ");
     }
 
     return '';
