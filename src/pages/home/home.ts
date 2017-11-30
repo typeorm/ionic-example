@@ -5,6 +5,7 @@ import { getRepository } from 'typeorm';
 import { Author } from '../../entities/author';
 import { Category } from '../../entities/category';
 import { Post } from '../../entities/post';
+import { Repository } from 'typeorm/repository/Repository';
 
 @Component({
   selector: 'page-home',
@@ -36,7 +37,7 @@ export class HomePage {
     post.categories = [category1, category2];
     post.author = author;
 
-    const postRepository = getRepository(Post);
+    const postRepository = getRepository('post') as Repository<Post>;
     await postRepository.save(post);
 
     console.log("Post has been saved");

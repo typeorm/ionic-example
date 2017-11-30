@@ -19,6 +19,7 @@ This project demonstrates how that would work.
 ### Limitations to TypeORM when using production builds
 Since Ionic make a lot of optimizations when building for productions, the following limitations occur
 1. Entities have to be marked with the table name (eg `@Entity('table_name')`)
+2. `getRepository()` has to be called with the name of the entity instead of the class (eg `getRepository('post') as Repository<Post>`)
 2. Date fields aren't supported
 ```ts
 @Column()
