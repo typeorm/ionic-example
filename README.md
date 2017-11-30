@@ -15,6 +15,7 @@ This project demonstrates how that would work.
 2. Install TypeORM: `npm install typeorm --save`
 3. Install node.js-Types: `npm install @types/node --save-dev`
 4. Add `"typeRoots": ["node_modules/@types"]` to your `tsconfig.json` under `compilerOptions`
+5. Create a custom webpack config file like the one [included in this project](config/webpack.config.js) to use the correct TypeORM version and add the config file to your [`package.json`](package.json#L12-14) (Required with TypeORM >= 0.1.8)
 
 ### Limitations to TypeORM when using production builds
 Since Ionic make a lot of optimizations when building for productions, the following limitations occur
