@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { getRepository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
 import { Author } from '../../entities/author';
 import { Category } from '../../entities/category';
 import { Post } from '../../entities/post';
-import { Repository } from 'typeorm/repository/Repository';
 
 @Component({
   selector: 'page-home',
