@@ -37,17 +37,12 @@ export class HomePage {
     post.categories = [category1, category2];
     post.author = author;
 
-    const postRepository = getRepository('post') as Repository<Post>;
-    await postRepository.save(post);
+    await post.save();
 
     console.log("Post has been saved");
     this.savedPost = true;
 
-    const loadedPost = await postRepository.createQueryBuilder('post')
-      .innerJoinAndSelect('post.author', 'author')
-      .innerJoinAndSelect('post.categories', 'categories')
-      .where('post.id = :id', {id: post.id})
-      .getOne();
+    const loadedPost = await Post.findOne({relations: ['author', 'categories'], where: {id: post.id}});
 
     console.log("Post has been loaded: ", loadedPost);
     this.loadedPost = loadedPost;
