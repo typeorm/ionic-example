@@ -47,7 +47,7 @@ ionic serve
 ```
 
 ### Run app in production mode
-3. Add a iOS or Android platform to your project: 
+3. Add an iOS or Android platform to your project: 
 ```bash
 ionic cordova platform add ios 
 # or 
