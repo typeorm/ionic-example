@@ -14,7 +14,7 @@ import { Post } from '../entities/post';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any;
+  rootPage: any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(async () => {
@@ -23,18 +23,37 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      await createConnection({
-        type: 'cordova',
-        database: 'test',
-        location: 'default',
-        logging: ['error', 'query', 'schema'],
-        synchronize: true,
-        entities: [
-          Author,
-          Category,
-          Post
-        ]
-      });
+      // Depending on the machine the app is running on, configure
+      // different database connections
+      if(platform.is('cordova')) {
+        // Running on device or emulator
+        await createConnection({
+          type: 'cordova',
+          database: 'test',
+          location: 'default',
+          logging: ['error', 'query', 'schema'],
+          synchronize: true,
+          entities: [
+            Author,
+            Category,
+            Post
+          ]
+        });
+      } else {
+        // Running app in browser
+        await createConnection({
+          type: 'sqljs',
+          autoSave: true,
+          location: 'browser',
+          logging: ['error', 'query', 'schema'],
+          synchronize: true,
+          entities: [
+            Author,
+            Category,
+            Post
+          ]
+        });
+      }
 
       this.rootPage = HomePage;
     });
