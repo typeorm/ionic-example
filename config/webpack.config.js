@@ -8,33 +8,30 @@
  */
 
 var webpack = require('webpack');
-var ionicWebpackFactory = require(process.env.IONIC_WEBPACK_FACTORY);
 
-var ModuleConcatPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin');
-var PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
+const CopyPlugin = require('copy-webpack-plugin');
 
 var useDefaultConfig = require('@ionic/app-scripts/config/webpack.config.js');
 
-useDefaultConfig.dev.plugins = [
-  ionicWebpackFactory.getIonicEnvironmentPlugin(),
-  ionicWebpackFactory.getCommonChunksPlugin(),
+useDefaultConfig.dev.plugins.push(
   new webpack.NormalModuleReplacementPlugin(/typeorm$/, function (result) {
     result.request = result.request.replace(/typeorm/, "typeorm/browser");
   }),
   new webpack.ProvidePlugin({
-    'window.SQL': 'sql.js/js/sql.js'
-  })
-]
+    'window.SQL': 'sql.js/dist/sql-wasm-debug.js'
+  }),
+  new CopyPlugin([ { from: 'node_modules/sql.js/dist/sql-wasm-debug.wasm', to: "../sql-wasm-debug.wasm" } ]),
+);
 
-useDefaultConfig.prod.plugins = [
-  ionicWebpackFactory.getIonicEnvironmentPlugin(),
-  ionicWebpackFactory.getCommonChunksPlugin(),
-  new ModuleConcatPlugin(),
-  new PurifyPlugin(),
+useDefaultConfig.dev.plugins.push(
   new webpack.NormalModuleReplacementPlugin(/typeorm$/, function (result) {
     result.request = result.request.replace(/typeorm/, "typeorm/browser");
-  })
-]
+  }),
+  new webpack.ProvidePlugin({
+    'window.SQL': 'sql.js/dist/sql-wasm.js'
+  }),
+  new CopyPlugin([ { from: 'node_modules/sql.js/dist/sql-wasm.wasm', to: "../sql-wasm.wasm" } ]),
+);
 
 module.exports = function () {
   return useDefaultConfig;
